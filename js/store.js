@@ -56,6 +56,20 @@ Store.prototype.getUniqueFilename = function(name, mimetype, callback, i) {
   });
 };
 
+Store.prototype.getDirectory = function(callback) {
+  var dir = this.directory + moment().format('YYYY-MM');
+  fs.stat(dir, function(err, stats) {
+    if (err) {
+      fs.mkdir(dir, function() {
+        callback(dir);
+      });
+    }
+    else {
+      callback(dir);
+    }
+  });
+};
+
 module.exports = Store;
 
 

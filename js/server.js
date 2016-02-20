@@ -26,7 +26,10 @@ var store       = new Store(directory);
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, directory);
+    // callback(null, directory);
+    store.getDirectory(function(directory) {
+      callback(null, directory);
+    });
   },
   filename: function (req, file, callback) {
     store.getUniqueFilename(path.parse(file.originalname).base,
