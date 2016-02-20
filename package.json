@@ -1,6 +1,6 @@
 {
-  "name": "scsw",
-  "version": "0.0.0",
+  "name": "Blackhole",
+  "version": "0.0.1",
   "description": "Blackhole - updload images and provide URL",
   "main": "s.js",
   "scripts": {
