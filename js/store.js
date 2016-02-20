@@ -8,6 +8,7 @@ var moment = require('moment');
 
 function Store(directory) {
   this.directory = directory;
+  this.currentDirectory = '';
 }
 
 Store.prototype.getUniqueFilename = function(name, mimetype, callback, i) {
@@ -57,7 +58,8 @@ Store.prototype.getUniqueFilename = function(name, mimetype, callback, i) {
 };
 
 Store.prototype.getDirectory = function(callback) {
-  var dir = this.directory + moment().format('YYYY-MM');
+  this.currentDirectory = moment().format('YYYY-MM');
+  var dir = this.directory + this.currentDirectory;
   fs.stat(dir, function(err, stats) {
     if (err) {
       fs.mkdir(dir, function() {
@@ -68,6 +70,10 @@ Store.prototype.getDirectory = function(callback) {
       callback(dir);
     }
   });
+};
+
+Store.prototype.getCurrentDirectory = function() {
+  return this.currentDirectory;
 };
 
 module.exports = Store;

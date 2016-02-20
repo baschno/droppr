@@ -54,7 +54,7 @@ function runServer() {
   });
 
   app.post('/upload', upload.single('file'), function(req, res) {
-    res.send({url: req.headers.referer + uploadPath + req.file.filename});
+    res.send({url: req.headers.referer + uploadPath + store.getCurrentDirectory() + '/' + req.file.filename});
   });
 
   // create secure server 
