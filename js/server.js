@@ -34,8 +34,8 @@ var storage = multer.diskStorage({
   filename: function (req, file, callback) {
     store.getUniqueFilename(path.parse(file.originalname).base,
                             file.mimetype,
-                            function(uniqueName) {
-      callback(null, uniqueName);
+                            function(err, uniqueName) {
+      callback(err, uniqueName);
     });
   }
 });
@@ -54,11 +54,21 @@ function runServer() {
   });
 
   app.post('/upload', upload.single('file'), function(req, res) {
-    res.send({url: req.headers.referer + uploadPath + store.getCurrentDirectory() + '/' + req.file.filename});
+    if (typeof req.file === 'object' && req.file.filename) {
+      res.send({
+        url: req.headers.referer +
+             uploadPath +
+             store.getCurrentDirectory() +
+             '/' +
+             req.file.filename});
+    }
+    else {
+      res.status(415).send('');
+    }
   });
 
   // create secure server 
-  httpsServer.listen(443);
+  httpsServer.listen(8443);
   console.info('**** Blackhole Server up and operational ****');
 }
 
