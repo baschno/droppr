@@ -24,6 +24,8 @@ var directory   = '../www/' + uploadPath;
 var Store       = require('./store');
 var store       = new Store(directory);
 
+var port        = 8443;
+
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
     // callback(null, directory);
@@ -68,8 +70,8 @@ function runServer() {
   });
 
   // create secure server 
-  httpsServer.listen(8443);
-  console.info('**** Blackhole Server up and operational ****');
+  httpsServer.listen(port);
+  console.info('**** Droppr is running on port ' + port + ' ****');
 }
 
 runServer();

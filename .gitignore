@@ -2,6 +2,6 @@ ____*
 www/components
 node_modules
 ssl
-blackhole.sublime*
+droppr.sublime*
 dist/
 www/uploads/*
