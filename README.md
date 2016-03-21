@@ -1,4 +1,4 @@
-# Blackhole
+# Droppr
 Upload files and clipboard data through a simple HTML input field to the server.
 The server responds the URL from where the resource can be accessed via HTTP.
 
@@ -6,8 +6,8 @@ The server responds the URL from where the resource can be accessed via HTTP.
 
 ##### Clone repository
     cd
-    clone https://github.com/sikr/blackhole.git
-    cd blackhole
+    clone https://github.com/sikr/drppr.git
+    cd droppr
 
 ##### create directory
     mkdir www/uploads
