@@ -4,4 +4,4 @@ node_modules
 ssl
 droppr.sublime*
 dist/
-www/uploads/*
+www/droppr/*

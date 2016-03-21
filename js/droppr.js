@@ -19,8 +19,9 @@ var path        = require('path');
 
 var multer      = require('multer');
 
-var uploadPath  = 'uploads/';
+var uploadPath  = 'droppr/';
 var directory   = '../www/' + uploadPath;
+//var directory   = '/var/www/' + uploadPath;
 var Store       = require('./store');
 var store       = new Store(directory);
 
@@ -58,7 +59,9 @@ function runServer() {
   app.post('/upload', upload.single('file'), function(req, res) {
     if (typeof req.file === 'object' && req.file.filename) {
       res.send({
-        url: req.headers.referer +
+        url: 'http://' +
+             req.headers.host.split(':')[0] +
+             '/' +
              uploadPath +
              store.getCurrentDirectory() +
              '/' +
