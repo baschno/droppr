@@ -10,22 +10,17 @@ var key         = fs.readFileSync('../ssl/key.pem');
 var certificate = fs.readFileSync('../ssl/cert.pem');
 var credentials = { key: key, cert: certificate};
 
+var config      = require('./config.json');
+
 var express     = require('express');
 var app         = express();
 var https       = require('https');
 var httpsServer = https.createServer(credentials, app);
-
 var path        = require('path');
-
 var multer      = require('multer');
 
-var uploadPath  = 'droppr/';
-var directory   = '../www/' + uploadPath;
-//var directory   = '/var/www/' + uploadPath;
 var Store       = require('./store');
-var store       = new Store(directory);
-
-var port        = 8443;
+var store       = new Store(config.uploadDirectory);
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -59,13 +54,23 @@ function runServer() {
   app.post('/upload', upload.single('file'), function(req, res) {
     if (typeof req.file === 'object' && req.file.filename) {
       res.send({
-        url: 'http://' +
-             req.headers.host.split(':')[0] +
+        // url: 'http://' +
+        //      req.headers.host.split(':')[0] +
+        //      '/' +
+        //      uploadPath +
+        //      store.getCurrentDirectory() +
+        //      '/' +
+        //      req.file.filename
+        url: config.downloadProtocol + 
+             '://' +
+             config.downloadHost +
              '/' +
-             uploadPath +
+             config.downloadPath +
+             '/' +
              store.getCurrentDirectory() +
              '/' +
-             req.file.filename});
+             req.file.filename
+      });
     }
     else {
       res.status(415).send('');
@@ -73,8 +78,8 @@ function runServer() {
   });
 
   // create secure server 
-  httpsServer.listen(port);
-  console.info('**** Droppr is running on port ' + port + ' ****');
+  httpsServer.listen(config.uploadPort);
+  console.info('**** Droppr is running on port ' + config.uploadPort + ' ****');
 }
 
 runServer();

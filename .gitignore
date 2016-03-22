@@ -5,3 +5,4 @@ ssl
 droppr.sublime*
 dist/
 www/droppr/*
+js/config.json

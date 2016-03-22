@@ -60,7 +60,12 @@ Store.prototype.getUniqueFilename = function(name, mimetype, callback, i) {
     }
   }
 
-  fullname = self.directory + basename + appendix + ext;
+  fullname = self.directory +
+             self.currentDirectory +
+             '/' +
+             basename +
+             appendix +
+             ext;
 
   fs.stat(fullname, function(err, stats) {
     if (err) {
