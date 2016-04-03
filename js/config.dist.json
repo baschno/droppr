@@ -1,8 +1,9 @@
 {
     "uploadPort": 8443,
-    "uploadDirectory": "../www/droppr/",
 
-    "downloadProtocol": "http",
-    "downloadHost": "foo.bar.com",
-    "downloadPath": "droppr"
+    "downloadProtocol": "https",
+    "downloadPort": 9443,
+    "downloadHost": "foo.bar.baz",
+
+    "path": "/var/www/droppr/"
 }

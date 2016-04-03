@@ -1,26 +1,28 @@
 /*
- * Blackhole - updload images and provide URL
+ * Droppr - updload images and provide URL
  */
 
 (function() {
 
-var fs          = require('fs');
+var fs             = require('fs');
 
-var key         = fs.readFileSync('../ssl/key.pem');
-var certificate = fs.readFileSync('../ssl/cert.pem');
-var credentials = { key: key, cert: certificate};
+var key            = fs.readFileSync('../ssl/key.pem');
+var certificate    = fs.readFileSync('../ssl/cert.pem');
+var credentials    = { key: key, cert: certificate};
 
-var config      = require('./config.json');
+var config         = require('./config.json');
 
-var express     = require('express');
-var app         = express();
-var https       = require('https');
-var httpsServer = https.createServer(credentials, app);
-var path        = require('path');
-var multer      = require('multer');
+var express        = require('express');
+var upload         = express();
+var download       = express();
+var https          = require('https');
+var uploadServer   = https.createServer(credentials, upload);
+var downloadServer = https.createServer(credentials, download);
+var path           = require('path');
+var multer         = require('multer');
 
-var Store       = require('./store');
-var store       = new Store(config.uploadDirectory);
+var Store          = require('./store');
+var store          = new Store(config.path);
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -38,20 +40,20 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+var uploadMulter = multer({ storage: storage });
 
 function runServer() {
 
   // static content webserver
-  app.use('/', express.static('../www/'));
+  upload.use('/', express.static('../www/'));
 
   // logging
-  app.use(function (req, res, next) {
+  upload.use(function (req, res, next) {
     console.info('request:' + req.url);
     next();
   });
 
-  app.post('/upload', upload.single('file'), function(req, res) {
+  upload.post('/upload', uploadMulter.single('file'), function(req, res) {
     if (typeof req.file === 'object' && req.file.filename) {
       res.send({
         // url: 'http://' +
@@ -65,8 +67,8 @@ function runServer() {
              '://' +
              config.downloadHost +
              '/' +
-             config.downloadPath +
-             '/' +
+             // config.path +
+             // '/' +
              store.getCurrentDirectory() +
              '/' +
              req.file.filename
@@ -77,8 +79,12 @@ function runServer() {
     }
   });
 
+  // static content webserver
+  download.use('/', express.static(config.path));
+
   // create secure server 
-  httpsServer.listen(config.uploadPort);
+  uploadServer.listen(config.uploadPort);
+  downloadServer.listen(config.downloadPort);
   console.info('**** Droppr is running on port ' + config.uploadPort + ' ****');
 }
 
