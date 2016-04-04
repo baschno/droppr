@@ -6,7 +6,7 @@ The server responds the URL from where the resource can be accessed via HTTP.
 
 ##### Clone repository
     $ cd
-    $ clone https://github.com/sikr/drppr.git
+    $ git clone https://github.com/sikr/droppr.git
     $ cd droppr
 
 ##### create directory
