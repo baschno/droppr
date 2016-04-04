@@ -1,13 +1,14 @@
 {
-  "name": "scsw",
-  "description": "Blackhole - updload images and provide URL",
-  "main": "s.js",
+  "name": "Droppr",
+  "description": "Droppr - updload images and provide URL",
+  "main": "js/droppr.js.js",
   "authors": [
     "sikr"
   ],
   "license": "MIT",
   "keywords": [
-    "upload"
+    "upload",
+    "download"
   ],
   "moduleType": [
     "node"
