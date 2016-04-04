@@ -5,22 +5,19 @@ The server responds the URL from where the resource can be accessed via HTTP.
 ### Installation
 
 ##### Clone repository
-    cd
-    clone https://github.com/sikr/drppr.git
-    cd droppr
+    $ cd
+    $ clone https://github.com/sikr/drppr.git
+    $ cd droppr
 
 ##### create directory
-    mkdir www/uploads
-    mkdir ssl
+    $ mkdir www/uploads
+    $ mkdir ssl
 
 ##### Set up modules and components
-    npm install
-    bower install
+    $npm install
+    $bower install
 
 ##### create certificate
-    mkdir ssl
-    cd ssl
-    openssl genrsa -out key.pem
-    openssl req -new -key key.pem -out csr.pem
-    openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
-    rm csr.pem
+    $ cd ssl
+    $ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
+    $ rm csr.pem

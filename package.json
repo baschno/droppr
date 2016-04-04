@@ -1,7 +1,7 @@
 {
   "name": "Droppr",
   "version": "0.0.1",
-  "description": "Blackhole - updload images and provide URL",
+  "description": "Droppr - updload images and provide URL",
   "main": "js/droppr.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

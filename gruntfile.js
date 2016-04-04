@@ -5,12 +5,12 @@ module.exports = function (grunt) {
     },
     uglify: {
       client: {
-        src: 'www/js/blackhole.js',
-        dest: 'dist/client/js/blackhole.min.js'
+        src: 'www/js/droppr-client.js',
+        dest: 'dist/client/js/droppr-client.min.js'
       },
       server: {
-        src: 'js/server.js',
-        dest: 'dist/server/js/server.min.js'
+        src: 'js/droppr.js',
+        dest: 'dist/server/js/droppr.min.js'
       },
       store: {
         'src': 'js/store.js',
