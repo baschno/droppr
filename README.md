@@ -20,4 +20,8 @@ The server responds the URL from where the resource can be accessed via HTTP.
 ##### create certificate
     $ cd ssl
     $ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
-    $ rm csr.pem
+
+##### adapt config file and start server
+    $ cp config.dist.json config.json
+    $ node js/droppr.js
+
