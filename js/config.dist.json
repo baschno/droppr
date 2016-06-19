@@ -4,6 +4,7 @@
     "downloadProtocol": "https",
     "downloadPort": 9443,
     "downloadHost": "foo.bar.baz",
+    "downloadPath": "/droppr",
 
     "path": "/var/www/droppr/"
 }

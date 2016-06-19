@@ -17,7 +17,7 @@ var upload         = express();
 var download       = express();
 var https          = require('https');
 var uploadServer   = https.createServer(credentials, upload);
-var downloadServer = https.createServer(credentials, download);
+// var downloadServer = https.createServer(credentials, download);
 var path           = require('path');
 var multer         = require('multer');
 
@@ -66,9 +66,9 @@ function runServer() {
         url: config.downloadProtocol + 
              '://' +
              config.downloadHost +
-             '/' +
-             // config.path +
              // '/' +
+             config.downloadPath +
+             '/' +
              store.getCurrentDirectory() +
              '/' +
              req.file.filename
@@ -84,7 +84,7 @@ function runServer() {
 
   // create secure server 
   uploadServer.listen(config.uploadPort);
-  downloadServer.listen(config.downloadPort);
+  // downloadServer.listen(config.downloadPort);
   console.info('**** Droppr is running on port ' + config.uploadPort + ' ****');
 }
 
