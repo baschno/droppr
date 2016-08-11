@@ -47,7 +47,7 @@ var uploadMulter = multer({ storage: storage });
 function runServer() {
 
   // static content webserver
-  upload.use('/', express.static('../www/'));
+  upload.use('/', express.static(base_path + '/www/'));
 
   // logging
   upload.use(function (req, res, next) {
