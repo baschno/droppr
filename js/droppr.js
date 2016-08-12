@@ -5,9 +5,11 @@
 (function() {
 
 var fs             = require('fs');
-
-var key            = fs.readFileSync('../ssl/key.pem');
-var certificate    = fs.readFileSync('../ssl/cert.pem');
+var path_arr       = __dirname.split("/");
+path_arr.pop();
+var base_path      = path_arr.join('/');
+var key            = fs.readFileSync(base_path + '/ssl/key.pem');
+var certificate    = fs.readFileSync(base_path + '/ssl/cert.pem');
 var credentials    = { key: key, cert: certificate};
 
 var config         = require('./config.json');
@@ -45,7 +47,7 @@ var uploadMulter = multer({ storage: storage });
 function runServer() {
 
   // static content webserver
-  upload.use('/', express.static('../www/'));
+  upload.use('/', express.static(base_path + '/www/'));
 
   // logging
   upload.use(function (req, res, next) {
@@ -63,7 +65,7 @@ function runServer() {
         //      store.getCurrentDirectory() +
         //      '/' +
         //      req.file.filename
-        url: config.downloadProtocol + 
+        url: config.downloadProtocol +
              '://' +
              config.downloadHost +
              // '/' +
@@ -82,7 +84,7 @@ function runServer() {
   // static content webserver
   download.use('/', express.static(config.path));
 
-  // create secure server 
+  // create secure server
   uploadServer.listen(config.uploadPort);
   // downloadServer.listen(config.downloadPort);
   console.info('**** Droppr is running on port ' + config.uploadPort + ' ****');
