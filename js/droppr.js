@@ -5,11 +5,11 @@
 (function() {
 
 var fs             = require('fs');
-var path_arr       = __dirname.split("/");
-path_arr.pop();
-var base_path      = path_arr.join('/');
-var key            = fs.readFileSync(base_path + '/ssl/key.pem');
-var certificate    = fs.readFileSync(base_path + '/ssl/cert.pem');
+var pathArray      = __dirname.split("/");
+pathArray.pop();
+var basePath       = pathArray.join('/');
+var key            = fs.readFileSync(basePath + '/ssl/key.pem');
+var certificate    = fs.readFileSync(basePpath + '/ssl/cert.pem');
 var credentials    = { key: key, cert: certificate};
 
 var config         = require('./config.json');
@@ -47,7 +47,7 @@ var uploadMulter = multer({ storage: storage });
 function runServer() {
 
   // static content webserver
-  upload.use('/', express.static(base_path + '/www/'));
+  upload.use('/', express.static(basePath + '/www/'));
 
   // logging
   upload.use(function (req, res, next) {
